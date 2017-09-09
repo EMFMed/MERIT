@@ -12,9 +12,9 @@ function [varargout] = expand(varargin)
     end
   end
 
-  varargout = varargin;
+  varargout = varargin(1:nargout);
   repeats = bsxfun(@rdivide, max(sizes), sizes);
-  for v = 1:numel(varargin)
+  for v = 1:numel(varargout)
     varargout{v} = repmat(varargout{v}, repeats(v, :));
   end
 end
