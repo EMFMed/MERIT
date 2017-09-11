@@ -23,6 +23,7 @@ function [signals_] = delay(signals, delays, axis_)
     %% Time domain
     if nargin == 2
       %% time domain, delay in samples
+      validateattributes(delays, {'numeric'}, {'integer'});
       signals_ = merit.utility.reshape2d(@delay_sample, signals, delays);
     elseif narargin == 3
       %% Time axis provided
