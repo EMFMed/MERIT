@@ -32,7 +32,7 @@ function [signals_] = delay(signals, delays, axis_)
         error('merit:process:delay', 'Time axis needs to be linearly sampled');
       end
       dt = diff(axis_(1:2));
-      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays.*dt);
+      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays./dt);
     end
   elseif ~isreal(signals) && nargin == 3
     %% Frequency domain
