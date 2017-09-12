@@ -16,8 +16,7 @@ function [signals_] = delay(signals, delays, axis_)
   %     delays: in seconds
   %     axis: match the first dimension of signals, frequency of each point.
 
-  dim_size = size(signals);
-  delays = merit.utility.expand(delays, reshape(signals(1, :), [1, dim_size(2:end)]));
+  [signals, delays] = merit.utility.expand2(signals, delays);
 
   if isreal(signals)
     %% Time domain
@@ -47,7 +46,7 @@ function [signals_] = delay_sample(signals, delays)
   signals_ = nan(size(signals), 'like', signals);
   signals_(:, delays==0) = signals(:, delays==0);
 
-  for d = unique(delays),
+  for d = unique(delays(:))',
     cs = delays == d;
     if d > 0
       signals_(d+1:end, cs) = signals(1:end-d, cs);
