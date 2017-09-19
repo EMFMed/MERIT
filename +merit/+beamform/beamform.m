@@ -39,7 +39,7 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
   img = zeros(size(points, 1), 1, 'like', points);
   for r = 1:numel(ranges_),
     img(ranges_{r}) = image_(window(...
-      merit.process.delay(signals, delay(points), axis_)));
+      merit.process.delay(signals, delay(points(ranges_{r}, :)), axis_)));
   end
 
   if gpu

@@ -1,4 +1,4 @@
-function [signals_] = delay(signals, delays, axis_)
+function [signals_] = delay(signals, delays, axis_, padding)
   % delay signals (in time or frequency domain) by delays.
   %
   % td_ = merit.process.delay(td, delays);
@@ -16,6 +16,9 @@ function [signals_] = delay(signals, delays, axis_)
   %     delays: in seconds
   %     axis: match the first dimension of signals, frequency of each point.
 
+  if ~exist('padding', 'var')
+    padding = @nan;
+  end
   [signals, delays] = merit.utility.expand2(signals, delays);
 
   if isreal(signals)
@@ -24,7 +27,7 @@ function [signals_] = delay(signals, delays, axis_)
       %% time domain, delay in samples
       validateattributes(delays, {'numeric'}, {'integer'});
       signals_ = merit.utility.reshape2d(@delay_sample, signals, delays);
-    elseif narargin == 3
+    elseif nargin >= 3 & numel(axis_) == size(signals, 1)
       %% Time axis provided
       validateattributes(axis_, {'numeric'},...
         {'vector', 'increasing', 'real'});
@@ -32,7 +35,12 @@ function [signals_] = delay(signals, delays, axis_)
         error('merit:process:delay', 'Time axis needs to be linearly sampled');
       end
       dt = diff(axis_(1:2));
-      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays./dt);
+      signals_ = merit.utility.reshape2d(@delay_sample, signals, round(delays./dt));
+    elseif nargin == 3 & isa(axis_, 'function_handle')
+      % Padding provided
+      padding = axis_;
+      validateattributes(delays, {'numeric'}, {'integer'});
+      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays);
     end
   elseif ~isreal(signals) && nargin == 3
     %% Frequency domain
@@ -40,18 +48,18 @@ function [signals_] = delay(signals, delays, axis_)
   else
     signals_ = signals;
   end
-end
 
-function [signals_] = delay_sample(signals, delays)
-  signals_ = nan(size(signals), 'like', signals);
-  signals_(:, delays==0) = signals(:, delays==0);
+  function [signals_] = delay_sample(signals, delays)
+    signals_ = padding(size(signals), 'like', signals);
+    signals_(:, delays==0) = signals(:, delays==0);
 
-  for d = unique(delays(:))',
-    cs = delays == d;
-    if d > 0
-      signals_(d+1:end, cs) = signals(1:end-d, cs);
-    else
-      signals_(1:end+d,cs) = signals(1-d:end, cs);
+    for d = unique(delays(:))',
+      cs = delays == d;
+      if d > 0
+        signals_(d+1:end, cs) = signals(1:end-d, cs);
+      else
+        signals_(1:end+d,cs) = signals(1-d:end, cs);
+      end
     end
   end
 end
