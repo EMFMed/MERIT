@@ -44,7 +44,7 @@ function [signals_] = delay(signals, delays, axis_, padding)
     end
   elseif ~isreal(signals) && nargin == 3
     %% Frequency domain
-    signals_ = signals .* exp(2*j*pi*bsxfun(@times, delays, axis_(:)));
+    signals_ = signals .* exp(-2*j*pi*bsxfun(@times, delays, axis_(:)));
   else
     signals_ = signals;
   end
