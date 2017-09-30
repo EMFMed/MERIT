@@ -4,8 +4,8 @@ function [linear] = linearlysampled(axis_)
   % e.g
   %   islinear = linearlysampled(axis_);
 
-  tolerance = 2*max(eps(axis_));
+  tolerance = 10*max(eps(axis_));
   steps = diff(axis_, 2);
 
-  linear = all(steps < tolerance);
+  linear = all(steps <= tolerance);
 end
