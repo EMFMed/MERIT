@@ -8,7 +8,7 @@ function [points] = imaging_domain(domain, varargin),
   coords = cell(1, ndim);
   domain_range = arrayfun(@(x) 1:size(domain, x), 1:ndim, 'UniformOutput', false);
   [coords{:}] = ndgrid(domain_range{:});
-  coords = cellfun(@(x) x(domain)', coords, 'UniformOutput', false);
+  coords = cellfun(@(x) x(domain), coords, 'UniformOutput', false);
 
   % Put in correct units
   if numel(varargin) >= 1,
