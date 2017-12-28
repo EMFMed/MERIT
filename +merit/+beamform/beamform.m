@@ -11,6 +11,9 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
   else
     bytes = 16;
   end
+  if isa(signals, 'single')
+    bytes = bytes/2;
+  end
 
   if gpu,
     try
