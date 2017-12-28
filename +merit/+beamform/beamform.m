@@ -36,7 +36,7 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
   ranges = [repmat(points_per_range, [1, floor(nPoints/points_per_range)]), rem(nPoints, points_per_range)];
   ranges_ = mat2cell(1:size(points, 1), 1, ranges);
 
-  img = zeros(size(points, 1), 1, 'like', points);
+  img = zeros(size(points, 1), 1, 'like', signals);
   for r = 1:numel(ranges_),
     img(ranges_{r}) = image_(window(...
       merit.process.delay(signals, delay(points(ranges_{r}, :)), axis_)));
