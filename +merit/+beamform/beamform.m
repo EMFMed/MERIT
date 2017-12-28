@@ -15,6 +15,10 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
     bytes = bytes/2;
   end
 
+  if ~iscell(delay)
+    delay = {delay};
+  end
+
   if gpu,
     try
       dev = gpuDevice();
@@ -34,15 +38,16 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
   max_points = @(mem) floor(mem/numel(signals)/bytes);
 
   nPoints = size(points, 1);
-  points_per_range = max_points(max_memory);
+  points_run = max_points(max_memory);
 
-  ranges = [repmat(points_per_range, [1, floor(nPoints/points_per_range)]), rem(nPoints, points_per_range)];
-  ranges_ = mat2cell(1:size(points, 1), 1, ranges);
+  img = zeros([nPoints, numel(delay), size_t(signals)], 'like', signals);
 
-  img = zeros(size(points, 1), 1, 'like', signals);
-  for r = 1:numel(ranges_),
-    img(ranges_{r}) = image_(window(...
-      merit.process.delay(signals, delay(points(ranges_{r}, :)), axis_)));
+  for r = 1:points_run:nPoints,
+    for d = 1:numel(delay)
+      rng = r:min(nPoints, r+points_run-1);
+      img(rng, d, :) = image_(window(...
+        merit.process.delay(signals, delay{d}(points(rng, :)), axis_)));
+    end
   end
 
   if gpu
@@ -50,4 +55,12 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
     dev = gpuDevice();
     reset(dev);
   end
+end
+
+function [s] = size_t(a)
+  s = size(a);
+  if numel(s) <= 2
+    s = [s, 1];
+  end
+  s = s(3:end);
 end
