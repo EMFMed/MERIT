@@ -26,19 +26,12 @@ classdef test_beamform < matlab.unittest.TestCase;
       [~, i] = max(img);
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
 
-      [t, r, z]
       grid_img = merit.beamform.un_imaging_domain(img, points, axes_{:});
-      size(grid_img)
-      imagesc(grid_img(:, :, 8))
-      return
       testCase.verifyTrue(abs(rad2deg(t)-location(1)) <= 9); % Angle within 9 degrees
       testCase.verifyTrue(r-location(2) < 5e-3); % Radius within 5 mm
-
-      grid_img = beamform.un_imaging_domain(img, points, axes_{:});
     end
 
     function [] = test_basic_fd(testCase),
-      %{
       location = [0, 35e-3]; % theta, rho
       load('data/ideal_at0.mat', 'data', 'frequencies', 'channels');
       antenna_locations = get_antenna_locations();
@@ -48,17 +41,13 @@ classdef test_beamform < matlab.unittest.TestCase;
       data = data(F, :);
       frequencies = frequencies(F);
 
-      c_0 = 299792458;
-      calculate_delay = beamform.delay(channels, antenna_locations, beamform.delays.constant(c_0/sqrt(6)));
+      delay_func = merit.beamform.delays.per_point(channels, antenna_locations, 'relative_permittivity', 6);
 
-      img = beamform.beamform(data, points, calculate_delay, beamform.windows.phase_shift(frequencies), beamform.beamformers.DAS, 'gpu', true);
+      img = merit.beamform.beamform(data, frequencies, points, delay_func, @(a) a, merit.beamform.beamformers.DAS);
       [~, i] = max(img);
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
       testCase.verifyTrue(abs(rad2deg(t)-location(1)) <= 9); % Angle within 9 degrees
       testCase.verifyTrue(r-location(2) < 5e-3); % Radius within 5 mm
-
-      grid_img = beamform.un_imaging_domain(img, points, axes_{:});
-      %}
     end
   end
 end
