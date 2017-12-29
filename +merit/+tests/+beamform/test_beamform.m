@@ -18,7 +18,7 @@ classdef test_beamform < matlab.unittest.TestCase;
 
       time_axis = (0:599)'/80e9;
       [pulse_td, pulse_fd] = DG(3e9, 1/3e9, time_axis, frequencies);
-      signals = merit.process.shape(data, pulse_fd, frequencies, time_axis);
+      signals = single(merit.process.shape(data, pulse_fd, frequencies, time_axis));
 
       delay_func = merit.beamform.delays.per_point(channels, antenna_locations, 'relative_permittivity', 6);
 
@@ -38,7 +38,7 @@ classdef test_beamform < matlab.unittest.TestCase;
       [points, axes_] = get_points(2e-3);
 
       F = frequencies >= 2e9 & frequencies <= 4e9;
-      data = data(F, :);
+      data = single(data(F, :));
       frequencies = frequencies(F);
 
       delay_func = merit.beamform.delays.per_point(channels, antenna_locations, 'relative_permittivity', 6);
