@@ -7,7 +7,7 @@ function [img_] = un_imaging_domain(img, points, varargin),
     points = cell2mat(coords); % Gather all dimensions
   end
 
-  img_ = accumarray(points, img, [], [], nan);
+  img_ = accumarray(points, img, [], [], nan('like', img));
 
   if axes_provided % match array to size of domain
     size_ = cellfun(@length, varargin);
