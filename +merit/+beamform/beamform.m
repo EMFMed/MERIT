@@ -13,6 +13,8 @@ function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, v
   end
   if isa(signals, 'single')
     bytes = bytes/2;
+    axis_ = single(axis_);
+    points = single(points);
   end
 
   if ~iscell(delay)
