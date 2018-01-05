@@ -27,8 +27,8 @@ classdef test_beamform < matlab.unittest.TestCase;
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
 
       grid_img = merit.beamform.un_imaging_domain(img, points, axes_{:});
-      testCase.verifyTrue(abs(rad2deg(t)-location(1)) <= 9); % Angle within 9 degrees
-      testCase.verifyTrue(r-location(2) < 5e-3); % Radius within 5 mm
+      testCase.verifyLessThan(abs(rad2deg(t)-location(1)), 9);
+      testCase.verifyLessThan(abs(r-location(2)), 5e-3);
     end
 
     function [] = test_basic_fd(testCase),
@@ -46,8 +46,8 @@ classdef test_beamform < matlab.unittest.TestCase;
       img = merit.beamform.beamform(data, frequencies, points, delay_func, @(a) a, merit.beamform.beamformers.DAS);
       [~, i] = max(img);
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
-      testCase.verifyTrue(abs(rad2deg(t)-location(1)) <= 9); % Angle within 9 degrees
-      testCase.verifyTrue(r-location(2) < 5e-3); % Radius within 5 mm
+      testCase.verifyLessThan(abs(rad2deg(t)-location(1)), 9);
+      testCase.verifyLessThan(abs(r-location(2)), 7e-3);
     end
   end
 end
