@@ -1,6 +1,19 @@
 function [w_x, w_y, w_z] = FWHM(img, points, varargin),
-  [~, mx] = max(img);
-  loc = points(mx, :);
+  switch numel(varargin)
+    case {1, 4}
+      loc = varargin{1};
+    otherwise
+      [~, mx] = max(img);
+      loc = points(mx, :);
+  end
+  switch numel(varargin)
+    case 3
+      axes_ = varargin;
+    case 4
+      axes_ = varargin(2:end);
+    otherwise
+      axes_ = {};
+  end
 
   [X, Y, Z] = get_axes(points, loc);
 
@@ -8,35 +21,14 @@ function [w_x, w_y, w_z] = FWHM(img, points, varargin),
   w_y = fwhm(img(Y));
   w_z = fwhm(img(Z));
 
-  if numel(varargin) == 3
-    w_x = w_x.* diff(varargin{1}(1:2));
-    w_y = w_y.* diff(varargin{2}(1:2));
-    w_z = w_z.* diff(varargin{3}(1:2));
+  if numel(axes_) == 3
+    w_x = w_x.* diff(axes_{1}(1:2));
+    w_y = w_y.* diff(axes_{2}(1:2));
+    w_z = w_z.* diff(axes_{3}(1:2));
   end
 
   if nargout == 1
     w_x = mean([w_x, w_y, w_z]);
-  end
-
-  return
-  switch ndims(img)
-    case 2
-      if ~exist('location', 'var')
-        [~, i] = max(img(:));
-        [x, y] = ind2sub(size(img), i);
-        location = [x, y];
-      end
-      w_x = fwhm(squeeze(img(:, location(2))));
-      w_y = fwhm(squeeze(img(location(1), :)));
-    case 3
-      if ~exist('location', 'var')
-        [~, i] = max(img(:));
-        [x, y, z] = ind2sub(size(img), i);
-        location = [x, y, z];
-      end
-      w_x = fwhm(squeeze(img(:, location(2), location(3))));
-      w_y = fwhm(squeeze(img(location(1), :, location(3))));
-      w_z = fwhm(squeeze(img(location(1), location(2), :)));
   end
 end
 
