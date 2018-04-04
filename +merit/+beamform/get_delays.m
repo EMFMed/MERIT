@@ -1,4 +1,4 @@
-function [calculate_time] = homogeneous(channels, antennas, varargin),
+function [calculate_time] = get_delays(channels, antennas, varargin),
   c_0 = 299792458;
   p = inputParser;
   addOptional(p, 'relative_permittivity', 1, @(a) isnumeric(a) && numel(a) == 1 && a >= 1);
