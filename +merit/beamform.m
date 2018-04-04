@@ -1,10 +1,12 @@
-function [img, sigs] = beamform(signals, axis_, points, delay, window, image_, varargin),
+function [img, sigs] = beamform(signals, axis_, points, delay, image_, varargin),
   p = inputParser;
   addOptional(p, 'max_memory', 1e9, @isnumeric);
   addOptional(p, 'gpu', false, @islogical);
+  addOptional(p, 'window', @(a) a);
   parse(p, varargin{:});
   gpu = p.Results.gpu;
   max_memory = p.Results.max_memory;
+  window = p.Results.window;
 
   if isreal(signals),
     bytes = 8;
