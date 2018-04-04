@@ -40,10 +40,10 @@ classdef test_imaging_domain < matlab.unittest.TestCase;
       
       points = merit.beamform.imaging_domain(domain, axes_{:});
       testCase.verifyEqual(points, turned_on_t);
-      img_ = merit.beamform.un_imaging_domain(ones(size(turned_on, 1), 1), turned_on);
+      img_ = merit.domain.img2grid(ones(size(turned_on, 1), 1), turned_on);
       testCase.verifyEqual(img_, subimg);
 
-      img_ = merit.beamform.un_imaging_domain(ones(size(turned_on, 1), 1), turned_on_t, axes_{:});
+      img_ = merit.domain.img2grid(ones(size(turned_on, 1), 1), turned_on_t, axes_{:});
       testCase.verifyEqual(img_, img);
     end
 
@@ -66,10 +66,10 @@ classdef test_imaging_domain < matlab.unittest.TestCase;
       points = merit.beamform.imaging_domain(domain, axes_{:});
       testCase.verifyEqual(points, turned_on_t);
 
-      img_ = merit.beamform.un_imaging_domain(ones(size(turned_on, 1), 1), turned_on);
+      img_ = merit.domain.img2grid(ones(size(turned_on, 1), 1), turned_on);
       testCase.verifyEqual(img_, subimg);
 
-      img_ = merit.beamform.un_imaging_domain(ones(size(turned_on, 1), 1), turned_on_t, axes_{:});
+      img_ = merit.domain.img2grid(ones(size(turned_on, 1), 1), turned_on_t, axes_{:});
       testCase.verifyEqual(img_, img);
     end
   end
