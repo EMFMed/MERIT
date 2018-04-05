@@ -1,4 +1,4 @@
-# Microwave Radar-based Imaging and Tomography: Efficient Reconstruction Software
+# Microwave Radar-based Imaging Toolbox: Efficient Reconstruction Software
 
 MERIT provides free software algorithms for Delay-and-Sum reconstruction of
 microwave imaging signals in medical and industrial settings.
@@ -66,14 +66,7 @@ img = beamform.beamform(signals, points, calculate_delays, window, beamformer,
 
 To try MERIT:
 
-1. Download the latest version and unzip to a chosen director.
-
-1. Add the directory to the MATLAB path or use the builtin startup script.
-`run path/to/MERIT/startup.m`
-
-1. Get data (use samples).
-
-1. Follow the tutorials or example scripts to view, image and analyze the data.
+Follow the [Getting Started Guide](https://github.com/EMFMed/MERIT/wiki/Getting-Started) and look at [existing publications](https://github.com/EMFMed/MERIT/wiki#publications-using-merit) that use MERIT.
 
 # Changelog
 
