@@ -25,42 +25,36 @@ MERIT is designed to make the imaging code short, clear and efficient. For
 example:
 
 ```matlab
-%% Get user data
-% signals are the responses for each channel in the time or frequency domain
-% axis_ are the time or frequency points for each sample in signals
-% channels describes the transmitting and receiving antenna for each channel
-% antenna_locations are the antenna locations are the transmit and receive
-%   locations referenced by channels
-[signals, axis_, channels] = get_signals();
-antenna_locations = get_antenna_locations();
+%% Load sample data (antenna locations, frequencies and signals)
+frequencies = dlmread('data/frequencies.csv');
+antenna_locations = dlmread('data/antenna_locations.csv');
+channel_names = dlmread('data/channel_names.csv');
 
-%% Create imaging domain
-% calculate image intensity at these points within the imaging domain
-[points, axes_] = get_points();
+scan1 = dlmread('data/B0_P3_p000.csv');
+scan2 = dlmread('data/B0_P3_p036.csv');
 
-%% Beamforming
-% calculate_delays is a function to calculate the round trip propagation delay
-%   from a given point or points in the imaging domain for each channel.
-speed_of_propagation = beamform.speeds.from_relative_permittivity(6);
-window = beamform.windows.rectangular(150);
-beamformer = beamform.beamformers.DAS;
-calculate_delays = beamform.delay(channels, antenna_locations, ...
-  speed_of_propagation);
+%% Perform rotation subtraction
+signals = scan1-scan2;
 
-img = beamform.beamform(signals, points, calculate_delays, window, beamformer);
+%% Generate imaging domain
+[points, axes_] = merit.domain.hemisphere('radius', 7e-2, 'resolution', 2.5e-3);
 
-%% Resulting image manipulation
-% convert from list of points to an array
-img_ = beamform.un_imaging_domain(img, points, axes_{:});
+%% Calculate delays for synthetic focusing
+delays = merit.beamform.get_delays(channel_names, antenna_locations, ...
+  'relative_permittivity', 8);
+
+%% Perform imaging
+img = abs(merit.beamform(signals, frequencies, points, delays, ...
+        merit.beamformers.DAS));
+
+%% Plot image using MATLAB functions
+im_slice = merit.visualize.get_slice(img, points, axes_, 'z', 35e-3);
+imagesc(axes_{1:2}, im_slice);
 ```
 
-Computationally intensive parts of the algorithm can be easily run on the GPU,
-simply by passing the gpu flag to the required functions:
-
-```matlab
-img = beamform.beamform(signals, points, calculate_delays, window, beamformer,
-'gpu', true);
-```
+In a few lines of code, radar-based images can be efficiently created.
+MERIT allows the user to change the beamformer, imaging domain and other features easily and simply.
+Functions are designed to accept options allowing the user to easily change the imaging procedure.
 
 # Getting started
 
