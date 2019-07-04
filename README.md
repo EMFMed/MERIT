@@ -60,7 +60,33 @@ Functions are designed to accept options allowing the user to easily change the 
 
 To try MERIT:
 
-Follow the [Getting Started Guide](https://github.com/EMFMed/MERIT/wiki/Getting-Started) and look at [existing publications](https://github.com/EMFMed/MERIT/wiki#publications-using-merit) that use MERIT.
+Follow the [Getting Started Guide](https://github.com/EMFMed/MERIT/wiki/Getting-Started) which shows, using a step-by-step guide, how to load, process, image and visualise microwave breast images. Bug reports, feature requests, or code or documentation contributions are welcome.
+
+If you have found MERIT useful and publish your work, we would be grateful if you could cite us using:
+
+D. O’Loughlin, M. A. Elahi, E. Porter, et al., "Open-source Software for Microwave Radar-based Image Reconstruction", Proceedings of the 12th European Conference on Antennas and Propagation (EuCAP), London, the UK, 9-13 April.
+
+# Publications using MERIT
+
+If you have used and cited MERIT, please consider adding your publication here (using the Github Issue Tracker: [how-to guide](https://help.github.com/articles/creating-an-issue/)).
+
+Research publications which have used MERIT:
+
+## Journal Publications
+
+* [Sensitivity and Specificity Estimation Using Patient-Specific Microwave Imaging in Diverse Experimental Breast Phantoms](https://ieeexplore.ieee.org/abstract/document/8428660)
+
+* [Microwave Breast Imaging: experimental tumour phantoms for the evaluation of new breast cancer diagnosis systems](http://iopscience.iop.org/article/10.1088/2057-1976/aaaaff/meta)
+
+* [Parameter Search Algorithms for Microwave Radar-Based Breast Imaging: Focal Quality Metrics as Fitness Functions](http://www.mdpi.com/1424-8220/17/12/2823)
+
+* [A 16‐modified antipodal Vivaldi antenna array for microwave‐based breast tumor imaging applications](https://onlinelibrary.wiley.com/doi/full/10.1002/mop.31873)
+
+## Conference Publications
+
+* [Effects of Interpatient Variance on Microwave Breast Images: Experimental Evaluation](https://ieeexplore.ieee.org/abstract/document/8513673)
+
+* [Evaluation of Experimental Microwave Radar-Based Images: Evaluation Criteria](https://ieeexplore.ieee.org/abstract/document/8608682)
 
 # Changelog
 
