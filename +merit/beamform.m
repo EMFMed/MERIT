@@ -54,8 +54,8 @@ end
   for r = 1:points_run:nPoints,
     for d = 1:numel(delay)
       rng = r:min(nPoints, r+points_run-1);
-      delayed_signals = merit.process.delay(signals, delay{d}(points(rng, :)), axis_);
-      img(rng, d, :) = image_(window(delayed_signals));
+      img(rng, d, :) = image_(window(...
+        merit.process.delay(signals, delay{d}(points(rng, :)), axis_)));
     end
   end
 
