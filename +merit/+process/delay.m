@@ -44,7 +44,7 @@ function [signals_] = delay(signals, delays, axis_, padding)
     end
   elseif ~isreal(signals) && nargin == 3
     %% Frequency domain
-    signals_ = signals .* exp(-2*j*pi*bsxfun(@times, delays, axis_(:)));
+    signals_ = signals .* exp(-2i*pi*( delays .* axis_(:) ) );
   else
     signals_ = signals;
   end
@@ -53,7 +53,7 @@ function [signals_] = delay(signals, delays, axis_, padding)
     signals_ = padding(size(signals), 'like', signals);
     signals_(:, delays==0) = signals(:, delays==0);
 
-    for d = unique(delays(:))',
+    for d = unique(delays(:))'
       cs = delays == d;
       if d > 0
         signals_(d+1:end, cs) = signals(1:end-d, cs);

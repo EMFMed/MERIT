@@ -44,7 +44,7 @@ function [signals_] = fd2td(signals, frequency_axis, time_axis)
 
     % Phase compensation
     phase = exp(1j*2*pi*min(frequency_axis(:)).*time_axis(:));
-    phase_compensation = @(z) real(bsxfun(@times, phase(:), z))/m;
+    phase_compensation = @(z) real(phase(:).*z)/m;
 
     signals_ = phase_compensation(iczt(signals));
   end

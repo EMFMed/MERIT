@@ -1,4 +1,4 @@
-function [img_] = img2grid(img, points, varargin),
+function [img_] = img2grid(img, points, varargin)
   axes_provided = numel(varargin) == size(points, 2);
   
   if axes_provided % map points

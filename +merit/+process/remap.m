@@ -1,4 +1,4 @@
-function [signals, new_channels] = remap(signals, new_antenna_names, original_channels),
+function [signals, new_channels] = remap(signals, new_antenna_names, original_channels)
   % Rename antennas and reorder channels according to new antenna names
   %
   % remapped_signals = remap(signals, new_antenna_names, original_channels)

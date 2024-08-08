@@ -9,5 +9,5 @@ function [signals] = shape(fd, pulse, frequency_axis, time_axis)
   validateattributes(pulse, {'numeric'},...
     {'vector', 'numel', numel(frequency_axis)});
 
-  signals = merit.process.fd2td(bsxfun(@times, fd, pulse(:)), frequency_axis, time_axis);
+  signals = merit.process.fd2td(fd.*pulse(:), frequency_axis, time_axis);
 end

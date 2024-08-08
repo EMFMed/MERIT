@@ -1,4 +1,4 @@
-function [points] = imaging_domain(domain, varargin),
+function [points] = imaging_domain(domain, varargin)
   if numel(varargin) < 1
     ndim = ndims(domain);
   else
@@ -11,7 +11,7 @@ function [points] = imaging_domain(domain, varargin),
   coords = cellfun(@(x) x(domain), coords, 'UniformOutput', false);
 
   % Put in correct units
-  if numel(varargin) >= 1,
+  if numel(varargin) >= 1
     coords = arrayfun(@(n) varargin{n}(coords{n}), 1:numel(varargin), 'UniformOutput', false);
   end
   coords = cellfun(@(a) a(:), coords, 'UniformOutput', false);
