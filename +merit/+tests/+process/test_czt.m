@@ -14,7 +14,7 @@ classdef test_czt < matlab.unittest.TestCase;
       'twod', [11, 11]);
     sampling_frequency = {40e9, 80e9, 500e9};
     signal = struct(...
-      'sine', @(ta, fs) sin(2*pi*(ta .* fs)));
+      'sine', @(ta, fs) sin(2*pi*ta.*fs));
   end
 
   properties(TestParameter)
@@ -82,5 +82,5 @@ classdef test_czt < matlab.unittest.TestCase;
 end
 
 function [a] = n(a)
-  a = (a / max(a));
+  a = a ./ max(a);
 end

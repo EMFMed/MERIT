@@ -13,7 +13,7 @@ function [varargout] = expand(varargin)
   end
 
   varargout = varargin(1:nargout);
-  repeats = (max(sizes) ./ sizes);
+  repeats = max(sizes)./sizes;
   for v = 1:numel(varargout)
     varargout{v} = repmat(varargout{v}, repeats(v, :));
   end
