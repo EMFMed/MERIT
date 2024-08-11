@@ -24,8 +24,11 @@ function [points, axes_] = hemisphere(options)
   full_axis = @(r) -radius_:r:radius_;
   half_axis = @(r) 0:r:radius_;
 
+  %for a 3D hemishpere:
   if options.no_z == false
       axes_ = {options.x, options.y, options.z};
+
+      %if left unspecified, create axes using the radius
       if isempty(axes_{1})
         axes_{1} = full_axis(resolution(1));
       end
@@ -36,9 +39,16 @@ function [points, axes_] = hemisphere(options)
         axes_{3} = half_axis(resolution(3));
       end
 
+      %use ndgrid to map the axes into points
       [Xs, Ys, Zs] = ndgrid(axes_{:});
+
+      % get the area using the equation of a sphere
       area_ = Xs.^2 + Ys.^2+Zs.^2 <= options.radius.^2;
   else
+
+       % if no z axis needed:
+
+      % create axes using radius if not specified 
       axes_ = {options.x, options.y};
       if isempty(axes_{1})
         axes_{1} = full_axis(resolution(1));
@@ -46,11 +56,15 @@ function [points, axes_] = hemisphere(options)
       if isempty(axes_{2})
         axes_{2} = full_axis(resolution(2));
       end
-
+    
+      % use ndgrid to map axes into points
       [Xs, Ys] = ndgrid(axes_{:});
+
+      % get area using equation of a circle
       area_ = Xs.^2 + Ys.^2 <= options.radius.^2;
   end
-
+    
+  % use area and axes to get the set of points in the imaging domain only
   points = merit.beamform.imaging_domain(area_, axes_{:});
 end
 
