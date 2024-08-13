@@ -21,6 +21,8 @@ properties
     The tolerance percentage for the maximum difference between the MERIT
     beamformed scan and the ORR-EPM beamformed scan.
     If the difference is higher than the tolerance level, this test fails.
+    The max difference was recorded as 14.43%
+    When the images are wrong, the max difference is typically above 90%
     %}
     tolerance_percentage = 0.15;
 
@@ -48,24 +50,30 @@ adi scans in the clean folder.
 %}
 number_of_scans = size(py_data, 2);
 
-% Get the first scan
-first = abs(double(py_data{1}));
+% Function to convert Reimer's data to MERIT Matlab equivalent.
+% - First convert to double.
+% - Then only get absolute.
+% - The second axis is flipped with Reimer, so we flip it back.
+extract_python_data = @(numpy_darray) flip(abs(double(numpy_darray)), 1);
 
+% Get the first scan
+first = extract_python_data(py_data{1});
+% Get the size
 m_size = size(first, 1);
 
+% Get the reference data
 ref_data = zeros(number_of_scans, m_size, m_size);
 ref_data(1, :, :) = first;
-
 if number_of_scans > 1
     for num = 2:number_of_scans
-        ref_data(num, :, :) = abs(double(py_data{num}));
+        ref_data(num, :, :) = extract_python_data(py_data{num});
     end
 end
 
 scan_dir = fullfile(pwd, testCase.um_bmid_dir, testCase.gen_three_clean_dir, testCase.scan_data);
 md_dir = fullfile(pwd, testCase.um_bmid_dir, testCase.gen_three_clean_dir, testCase.md_data);
 
-merit_data = verify_ummid_render(number_of_scans, m_size, pwd, scan_dir, md_dir);
+merit_data = verify_ummid_render(number_of_scans, m_size, pwd, scan_dir, md_dir, ref_data);
 
 nan_map = isnan(squeeze(merit_data(1, :, :)));
 ref_data(:, nan_map) = nan;

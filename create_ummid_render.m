@@ -108,7 +108,7 @@ distance to send and the distance to receive.
 delays = @(points) delays_temp(points) - 2*(delay_constant);
 
 % Generate imaging domain
-[points, axes_] = merit.domain.get_pix_xys(m_size, roi_rad);
+[points, axes_] = merit.domain.hemisphere(roi_rad, pixel_dim=m_size, no_z=true);
 
 %{
 Create DAS beamform function.
@@ -126,9 +126,6 @@ end
 
 % Create image
 img = abs(merit.beamform(org_signal, frequencies(:), points, delays, DAS));
-
-% For some reason, the image is actually flipped. So we must flip it back to normal:
-img = flip(img);
 
 % Convert the image to grid
 grid_ = merit.domain.img2grid(img, points, axes_{:});

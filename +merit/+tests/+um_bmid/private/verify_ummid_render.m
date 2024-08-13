@@ -1,10 +1,11 @@
-function merit_data = verify_ummid_render(number_of_scans, m_size, pwd_path, scan_dir, md_dir)
+function merit_data = verify_ummid_render(number_of_scans, m_size, pwd_path, scan_dir, md_dir, ref_data)
 arguments
     number_of_scans {mustBeInteger, mustBePositive}
     m_size {mustBeInteger, mustBePositive}
     pwd_path
     scan_dir
     md_dir
+    ref_data
 end
 % Add the main directory to this scripts path
 cd(pwd_path);
@@ -123,16 +124,14 @@ for scan_num = 1:number_of_scans
     delays = @(points) delays_temp(points) - 2*(delay_constant);
     
     % Generate imaging domain
-    [points, axes_] = merit.domain.get_pix_xys(m_size, roi_rad);
-    
+    [points, axes_] = merit.domain.hemisphere(roi_rad, pixel_dim=m_size, no_z=true);
+
     % Create image
     img = abs(merit.beamform(org_signal, frequencies(:), points, delays, DAS));
     
-    % For some reason, the image is actually flipped. So we must flip it back to normal:
-    img = flip(img);
-    
     % Convert the image to grid
     grid_ = merit.domain.img2grid(img, points, axes_{:});
+
     merit_data(scan_num, :, :) = grid_;
 end
 end

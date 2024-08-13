@@ -70,7 +70,7 @@ title(sprintf('Channel (%d, %d) Phase—Artefact removed', channel_names(1, :)))
 
 %% Generate imaging domain and visualise
 figure(3)
-[points, axes_] = merit.domain.hemisphere(radius=7e-2, resolution=2.5e-3);
+[points, axes_] = merit.domain.hemisphere(7e-2, resolution=2.5e-3);
 subplot(1, 1, 1);
 scatter3(points(:, 1), points(:, 2), points(:, 3), '+');
 
