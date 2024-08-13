@@ -1,11 +1,10 @@
-function merit_data = verify_ummid_render(number_of_scans, m_size, pwd_path, scan_dir, md_dir, ref_data)
+function merit_data = verify_ummid_render(number_of_scans, m_size, pwd_path, scan_dir, md_dir)
 arguments
     number_of_scans {mustBeInteger, mustBePositive}
     m_size {mustBeInteger, mustBePositive}
     pwd_path
     scan_dir
     md_dir
-    ref_data
 end
 % Add the main directory to this scripts path
 cd(pwd_path);

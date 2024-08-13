@@ -73,7 +73,7 @@ end
 scan_dir = fullfile(pwd, testCase.um_bmid_dir, testCase.gen_three_clean_dir, testCase.scan_data);
 md_dir = fullfile(pwd, testCase.um_bmid_dir, testCase.gen_three_clean_dir, testCase.md_data);
 
-merit_data = verify_ummid_render(number_of_scans, m_size, pwd, scan_dir, md_dir, ref_data);
+merit_data = verify_ummid_render(number_of_scans, m_size, pwd, scan_dir, md_dir);
 
 nan_map = isnan(squeeze(merit_data(1, :, :)));
 ref_data(:, nan_map) = nan;
