@@ -93,7 +93,7 @@ s11 scan in "gen-three/clean". Then dividing the mean of that by...
 the speed of a vaccuum to get relative permittivity.
 %}
 relative_permittivity = 1.0932; 
-delays_temp = merit.beamform.get_delays([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity);
+delays_temp = merit.beamform.get_delays([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity=relative_permittivity);
 
 %{
 Apply extra time delay for monostatic. Constant taken from T. Reimer's measurements.
