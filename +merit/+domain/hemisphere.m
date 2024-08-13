@@ -6,7 +6,7 @@ function [points, axes_] = hemisphere(options)
   %   resolution is the spacing between points and can be different for each axis.
   arguments
       options.resolution (1,1){mustBeNumeric, mustBeReal} = 1e-3                        %resolution must be numeric, real value, default 1e-3
-      options.radius (1,1){mustBeNumeric, mustBeReal, mustBeScalarOrEmpty} = 7e-2       %radius must be a numeric, real scalal, default value 7e-2
+      options.radius (1,1){mustBeNumeric, mustBeReal} = 7e-2       %radius must be a numeric, real scalal, default value 7e-2
       options.x {numeric_or_rvector}  = []                                    % x, y, z must be numeric or real vectors
       options.y {numeric_or_rvector}  = []                    
       options.z {numeric_or_rvector}  = []

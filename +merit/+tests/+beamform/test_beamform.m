@@ -40,11 +40,7 @@ classdef test_beamform < matlab.unittest.TestCase
       data = single(data(F, :));
       frequencies = frequencies(F);
 
-<<<<<<< HEAD
-      delay_func = merit.beamform.get_delays(channels, antenna_locations, 8);
-=======
       delay_func = merit.beamform.get_delays(channels, antenna_locations, relative_permittivity=8);
->>>>>>> master
 
       img = abs(merit.beamform(data, frequencies, points, delay_func, merit.beamformers.DAS));
       [~, i] = max(img);
