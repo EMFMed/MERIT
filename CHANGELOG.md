@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Cleaner getting_started.m
+
 ## [1.0.0] - 2024-08-15
 
 ### Added
