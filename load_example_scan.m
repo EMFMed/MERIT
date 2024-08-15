@@ -1,4 +1,4 @@
-function [scan, rotated_scan] = load_scan(ph, pl)
+function [scan, rotated_scan] = load_example_scan(ph, pl)
    filename = sprintf('%s_P%d_p000.csv', ph, pl);
    rot_filename = sprintf('%s_P%d_p036.csv', ph, pl);
    
