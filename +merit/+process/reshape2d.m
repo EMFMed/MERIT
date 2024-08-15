@@ -11,12 +11,12 @@ function [result] = reshape2d(f, varargin)
   for v = 2:numel(varargin)
     size_ = size(varargin{v});
     if ~isequal(size_(2:end), original_size(2:end)),
-      error('merit:utility:reshape2d', 'Input arrays must have the same trailing dimension sizes');
+      error('Input arrays must have the same trailing dimension sizes');
     end
   end
   
   flatten = @(a) reshape(a, size(a, 1), []);
   restore = @(a) reshape(a, [size(a, 1), original_size(2:end)]);
 
-  result = merit.utility.under(f, flatten, restore, varargin{:});
+  result = merit.process.under(f, flatten, restore, varargin{:});
 end

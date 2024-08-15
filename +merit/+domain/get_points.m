@@ -1,4 +1,4 @@
-function [points] = imaging_domain(domain, varargin)
+function [points] = get_points(domain, varargin)
   if numel(varargin) < 1
     ndim = ndims(domain);
   else

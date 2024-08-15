@@ -18,7 +18,7 @@ channel_names = dlmread('example_data/channel_names.csv');
 % Select the signal data from a range of different scans.
 ph = "B0"; % Choose breast phantom from the following: {'B0','B10E','B15E','B20E','B30E'}.
 pl = 3; % Choose tumour from list of 1 to 22.
-[scan1, scan2] = load_scan(ph, pl);
+[scan1, scan2] = load_example_scan(ph, pl);
 
 % Perform rotation subtraction
 signals = scan1-scan2;

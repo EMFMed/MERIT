@@ -37,7 +37,7 @@ channel_names = dlmread('example_data/channel_names.csv');
 % Select the signal data from a range of different scans.
 ph = "B0"; % Choose breast phantom from the following: {'B0','B10E','B15E','B20E','B30E'}.
 pl = 3; % Choose tumour from list of 1 to 22.
-[scan1, scan2] = load_scan(ph, pl);
+[scan1, scan2] = load_example_scan(ph, pl);
 
 % Perform rotation subtraction
 signals = scan1-scan2;
@@ -48,18 +48,18 @@ signals = scan1-scan2;
 %% Calculate delays
 % merit.get_delays returns a function that calculates the delay
 %   to each point from every antenna.
-delays = merit.beamform.get_delays(channel_names, antenna_locations, ...
+delays = merit.get_delay(channel_names, antenna_locations, ...
  relative_permittivity=8);
 
 %% Perform imaging
 img = abs(merit.beamform(signals, frequencies, points, delays, ...
-        merit.beamformers.DAS));
+        merit.beamformer.DAS));
 
 %% Display image slice
-im_slice = merit.visualize.get_slice(img, points, axes_, z=35e-3);
+im_slice = merit.domain.get_slice(img, points, axes_, z=35e-3);
 figure()
 imagesc(axes_{1:2}, im_slice);
 
 %% Display 3D image
 grid_ = merit.domain.img2grid(img, points, axes_{:});
-merit.visualize.display_3D_scan(grid_);
+merit.display.as_3D_scan(grid_);

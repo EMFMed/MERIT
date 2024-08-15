@@ -1,4 +1,4 @@
-function display_3D_scan(grid_, options)
+function as_3D_scan(grid_, options)
 % Display a 3D colormap render of a (:, :, :) grid.
 % The density is relative to the highest and lowest numbers.
 % Higher density means higher opacity.

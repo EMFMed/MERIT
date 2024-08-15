@@ -8,12 +8,12 @@ function [inds] = txrx2ind(channels, tx, rx)
   if ~exist('rx', 'var')
     rx = tx;
   else
-    [tx, rx] = merit.utility.expand(tx, rx);
+    [tx, rx] = merit.process.expand(tx, rx);
   end
 
   nChannels = size(channels, 1);
 
-  inds = merit.utility.under(@get_inds, @(a) a(:), @(a) reshape(a, size(tx)), tx, rx);
+  inds = merit.process.under(@get_inds, @(a) a(:), @(a) reshape(a, size(tx)), tx, rx);
 
   function [inds] = get_inds(tx, rx)
     s = [nChannels, numel(tx)];
