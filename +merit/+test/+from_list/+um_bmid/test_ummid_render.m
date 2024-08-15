@@ -1,4 +1,5 @@
 classdef test_ummid_render < matlab.unittest.TestCase
+% See if MERIT beamforming matches Reimer's data. Reuir
 %{
 - Test to verify that the MERIT DAS beamforming of the gen-three UM-BMID scans is
 equivalent to the beamformed data taken from the following commit:

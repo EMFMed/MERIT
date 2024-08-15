@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# This is a script designed to get the beamformed image data from Tyson Reimer, using his code and his functions.
+# This is so that we may compare his beamformed data to our beamformed data.
+# Make sure to change the 
 echo " 
 Matlab currently does not support the latest Python version. Make sure to set Matlab to use Python 3.11
 The ORR-EPM repo works with the current Python, but not the current Numpy package. Make sure to use Numpy 1.26.4
@@ -32,22 +35,27 @@ directory=$(dirname "$1")
 
 copied_file="$directory/RUN_ME.py"
 
-# This is where the "simple clean" .pickle scans should be. These scans are not reference subtracted. The python program does that for us.
+# This is where the "simple clean" .pickle scans should be from the UM-BMID google drive. These scans are not reference subtracted. The python program does that for us.
 gen_three_simple_clean_python_data='../um_bmid/datasets/gen-three/simple-clean/python-data/'
 
 cp "$original_file" "$copied_file"
 
-# Replace 'the' with 'ye' in the copied file using sed
+## Use sed to optimize the performance of Reimer's script.
+# Shrink the pixel count:
 sed -i 's#\b__M_SIZE = 150\b#__M_SIZE = 50#g' "$copied_file"
+# We only care about das beamforming:
 sed -i 's#\bdo_dmas = True\b#do_dmas = False#g' "$copied_file"
 sed -i 's#\bdo_orr = True\b#do_orr = False#g' "$copied_file"
+# Change the input and output paths:
 sed -i "s#__D_DIR = os.path.join(get_proj_path(), 'data/umbmid/g3/')#__D_DIR = os.path.join(get_proj_path(), ${gen_three_simple_clean_python_data})#g" "$copied_file"
 #sed -i "s#__O_DIR = os.path.join(get_proj_path(), \"output/orr/g3/\")#__O_DIR = os.path.join(get_proj_path(), \"output/gen-three/\")#g" "$copied_file"
 sed -i "s#s11 = load_pickle(os.path.join(__D_DIR, 'g3_s11.pickle'))#s11 = load_pickle(os.path.join(__D_DIR, 'fd_data_gen_three_s11.pickle'))#g" "$copied_file"
 sed -i "s#md = load_pickle(os.path.join(__D_DIR, 'g3_md.pickle'))#md = load_pickle(os.path.join(__D_DIR, 'metadata_gen_three.pickle'))#g" "$copied_file"
 
+# We don't have access to this data, so we remove the check for it (we don't need it anyway).
 sed -i -n -e '/    # Load glycerin DAK dielectric data/!{p;d;};n;' -e ':a' -e 'n;/./ba' "$copied_file"
 sed -i -n -e '/    # Interpolate to the scan frequencies/!{p;d;};n;' -e ':a' -e 'n;/./ba' "$copied_file"
+# This is unnecessary for our use case:
 sed -i -n -e '/            # Delete the previously-saved DMAS files to save disk space/!{p;d;};n;' -e ':a' -e 'n;/./ba' "$copied_file"
 sed -i -n -e '/            # Delete the previously-saved ORR files to save disk space/!{p;d;};n;' -e ':a' -e 'n;/./ba' "$copied_file"
 sed -i -n -e '/            # Delete the previously-saved .pickle to save disk space/!{p;d;};n;' -e ':a' -e 'n;/./ba' "$copied_file"

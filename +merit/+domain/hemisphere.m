@@ -1,15 +1,18 @@
 function [points, axes_] = hemisphere(radius, options)
-% [points, axes_] = merit.domain.hemisphere('radius', r, 'resolution', res)
-%   points is a list of points in a hemisphere with resolution spacing between them.
-%   axes_ is the discrete points in each direction.
-%   r is the radius of the hemisphere
-%   resolution is the spacing between points and can be different for each axis.
+% Create a hemisphere (or circle).
+%{  
+points is a list of points in a hemisphere with resolution spacing between them.
+axes_ is the discrete points in each direction.
+r is the radius of the hemisphere
+resolution is the spacing between points and can be different for each axis.
+%}
 arguments
   radius (1,1)
-  % Only either resolution or pixel dimensions can/must be chosen.
+  % Only either resolution or pixel dimensions can and must be chosen.
   options.resolution {mustBeNumericOrRealVectorOrEmpty} = []
   options.pixel_dim = []
 
+  % Remove the z axis. This turns the hemisphere into a circle
   options.no_z = false  % no_z (no z axis) is default false
 end
 
@@ -30,13 +33,13 @@ if isscalar(resolution)
     resolution = repmat(resolution, [1, 3]);
 end
 
-    function value = fun_full_axis(step)
-        value = -radius:step:radius;
-    end
+function value = fun_full_axis(step)
+    value = -radius:step:radius;
+end
 
-    function value = fun_half_axis(step)
-        value = 0:step:radius;
-    end
+function value = fun_half_axis(step)
+    value = 0:step:radius;
+end
 
 full_axis = @fun_full_axis;
 half_axis = @fun_half_axis;
@@ -62,7 +65,6 @@ if options.no_z == false
   % get the area using the equation of a sphere
   area_ = Xs.^2 + Ys.^2+Zs.^2 <= radius.^2;
 else
-
    % if no z axis needed:
 
   % create axes using radius if not specified 
