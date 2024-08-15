@@ -14,12 +14,12 @@ function [signals_] = delay(signals, delays, axis_, padding)
   %   else signals are complex:
   %     signals are in the frequency domain
   %     delays: in seconds
-  %     axis: match the first dimension of signals, frequency of each point.
+  %     axis: match the first dimension of signals, frequency of each
+  %     point.    aq
 
   if ~exist('padding', 'var')
     padding = @nan;
   end
-  [signals, delays] = merit.utility.expand2(signals, delays);
 
   if isreal(signals)
     %% Time domain

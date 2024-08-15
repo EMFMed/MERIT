@@ -19,6 +19,8 @@ Features include:
     signal-to-clutter and signal-to-mean ratios;
  - and visualize image results in two and three dimensions.
 
+![example_3D_scan](/.showcase/example_3D_scan.png)
+
 # Examples
 
 MERIT is designed to make the imaging code short, clear and efficient. For
@@ -26,12 +28,12 @@ example:
 
 ```matlab
 %% Load sample data (antenna locations, frequencies and signals)
-frequencies = dlmread('data/frequencies.csv');
-antenna_locations = dlmread('data/antenna_locations.csv');
-channel_names = dlmread('data/channel_names.csv');
+frequencies = dlmread('example_data/frequencies.csv');
+antenna_locations = dlmread('example_data/antenna_locations.csv');
+channel_names = dlmread('example_data/channel_names.csv');
 
-scan1 = dlmread('data/B0_P3_p000.csv');
-scan2 = dlmread('data/B0_P3_p036.csv');
+scan1 = dlmread('example_data/B0_P3_p000.csv');
+scan2 = dlmread('example_data/B0_P3_p036.csv');
 
 %% Perform rotation subtraction
 signals = scan1-scan2;

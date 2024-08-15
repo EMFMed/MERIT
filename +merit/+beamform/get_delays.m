@@ -7,9 +7,9 @@ function [calculate_time] = get_delays(channels, antennas, options)
   %  options: relative permittivity
   
 arguments
-  channels (:, 2) {mustBePositive, mustBeInteger}
-  antennas (:, 3) {mustBeReal}
-  options.relative_permittivity {mustBeNumeric, mustBeScalarOrEmpty, mustBeGreaterThanOrEqual(options.relative_permittivity,1)}     % relative permittivity must be a nummeric scaler >= 1
+  channels {mustBePositive, mustBeInteger}
+  antennas {mustBeReal}
+  options.relative_permittivity {mustBeScalarOrEmpty, mustBeGreaterThanOrEqual(options.relative_permittivity,1)}     % relative permittivity must be a nummeric scaler >= 1
 end
   c_0 = 299792458;  % speed of light in a vacuum
   relative_permittivity = options.relative_permittivity;

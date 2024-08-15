@@ -1,4 +1,4 @@
-frequencies = dlmread('example_data/frequ'example_data/encies.csv');
+frequencies = dlmread('example_data/frequencies.csv');
 antenna_locations = dlmread('example_data/antenna_locations.csv');
 channel_names = dlmread('example_data/channel_names.csv');
 

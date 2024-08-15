@@ -1,4 +1,4 @@
-classdef test_beamform < matlab.unittest.TestCase;
+classdef test_beamform < matlab.unittest.TestCase
   properties
   end
 
@@ -10,11 +10,11 @@ classdef test_beamform < matlab.unittest.TestCase;
   end
 
   methods (Test)
-    function [] = test_basic(testCase),
+    function [] = test_basic(testCase)
       location = [0, 15e-3]; % theta, rho
 
       [data, frequencies, channels, antenna_locations] = get_data();
-      [points, axes_] = merit.domain.hemisphere(radius=7e-2, resolution=2.5e-3);
+      [points, axes_] = merit.domain.hemisphere(7e-2, resolution=2.5e-3);
 
       time_axis = (0:599)'/80e9;
       [pulse_td, pulse_fd] = DG(3e9, 1/3e9, time_axis, frequencies);
@@ -31,10 +31,10 @@ classdef test_beamform < matlab.unittest.TestCase;
       testCase.verifyLessThan(abs(r-location(2)), 5e-3);
     end
 
-    function [] = test_basic_fd(testCase),
+    function [] = test_basic_fd(testCase)
       location = [0, 15e-3]; % theta, rho
       [data, frequencies, channels, antenna_locations] = get_data();
-      [points, axes_] = merit.domain.hemisphere(radius=7e-2, resolution=2.5e-3);
+      [points, axes_] = merit.domain.hemisphere(7e-2, resolution=2.5e-3);
 
       F = frequencies >= 2e9 & frequencies <= 4e9;
       data = single(data(F, :));

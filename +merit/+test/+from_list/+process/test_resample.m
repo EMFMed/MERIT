@@ -1,4 +1,4 @@
-classdef test_resample < matlab.unittest.TestCase;
+classdef test_resample < matlab.unittest.TestCase
   properties
   end
   methods(TestClassSetup)
