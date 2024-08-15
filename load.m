@@ -3,7 +3,7 @@ function [scan, rotated_scan] = load(ph, pl)
    rot_filename = sprintf('%s_P%d_p036.csv', ph, pl);
    
    % path to scans
-   folder_path = '+example_data/';
+   folder_path = 'example_data/';
 
    % construct filename and search for the file in folder_path
    filepath = fullfile(folder_path, filename);
@@ -20,5 +20,7 @@ function [scan, rotated_scan] = load(ph, pl)
     end
 
     scan = dlmread(filename);
+    % A second scan rotated by 36 degrees from the first
+    % was acquired for artefact removal:
     rotated_scan = dlmread(rot_filename);
 end
