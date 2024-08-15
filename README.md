@@ -24,10 +24,10 @@ Features include:
 # Examples
 
 MERIT is designed to make the imaging code short, clear and efficient. For
-example:
+example, to create the 3D scan shown above:
 
 ```matlab
-%% Load sample data (antenna locations, frequencies and signals)
+%% Load example data
 frequencies = dlmread('example_data/frequencies.csv');
 antenna_locations = dlmread('example_data/antenna_locations.csv');
 channel_names = dlmread('example_data/channel_names.csv');
@@ -35,25 +35,28 @@ channel_names = dlmread('example_data/channel_names.csv');
 scan1 = dlmread('example_data/B0_P3_p000.csv');
 scan2 = dlmread('example_data/B0_P3_p036.csv');
 
-%% Perform rotation subtraction
+% Perform rotation subtraction
 signals = scan1-scan2;
 
 %% Generate imaging domain
-[points, axes_] = merit.domain.hemisphere('radius', 7e-2, 'resolution', 2.5e-3);
+[points, axes_] = merit.domain.hemisphere(7e-2, resolution=2.5e-3);
 
-%% Calculate delays for synthetic focusing
+%% Calculate delays
+% merit.get_delays returns a function that calculates the delay
+%   to each point from every antenna.
 delays = merit.beamform.get_delays(channel_names, antenna_locations, ...
-  'relative_permittivity', 8);
+ relative_permittivity=8);
 
 %% Perform imaging
 img = abs(merit.beamform(signals, frequencies, points, delays, ...
         merit.beamformers.DAS));
 
-%% Plot image using MATLAB functions
-im_slice = merit.visualize.get_slice(img, points, axes_, 'z', 35e-3);
-imagesc(axes_{1:2}, im_slice);
+%% Display 3D image
+% Convert image to grid
+grid_ = merit.domain.img2grid(img, points, axes_{:});
+% Display image
+merit.visualize.display_3D_scan(grid_);
 ```
-
 In a few lines of code, radar-based images can be efficiently created.
 MERIT allows the user to change the beamformer, imaging domain and other features easily and simply.
 Functions are designed to accept options allowing the user to easily change the imaging procedure.

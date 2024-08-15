@@ -8,3 +8,4 @@ List of goals that are due to be met or removed.
 - Try and optimize beamform and get_delays
 - Add more beamformers options
 - Add more metrics for measuing the error (including slightly different duplicates)
+- Add script from BRIGID to easily choose which scanned data to load

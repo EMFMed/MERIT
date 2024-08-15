@@ -10,15 +10,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- New functions
 - TODO list
+- Example dataset from BRIGID (w/ example scripts to load and use).
+- Ability to load and use Tyson Reimer's data from UM-BMID w/ example script.
+- Functions to measure performance (w/ example script)
+- Function to display the 3D scan
 
 ### Changed
 
-- Renamed many functions and namespaces
+- Renamed multiple functions and namespaces
 - Moved some functions to different namespaces
 
 ### Removed
 
-- Unused functions
+- Unused functions (expand2.m)
 
