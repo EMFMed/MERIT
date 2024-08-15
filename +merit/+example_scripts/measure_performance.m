@@ -58,9 +58,9 @@ disp(["Total time using doubles:", info_double.FunctionTable(1).TotalTime])
 disp(["Total time using singles:", info_single.FunctionTable(1).TotalTime])
 
 % Get the time difference
-time_diff_perc = ( info_double.FunctionTable(1).TotalTime...
+time_diff_perc = 100*( info_double.FunctionTable(1).TotalTime...
     - info_single.FunctionTable(1).TotalTime )...
-    /info_double.FunctionTable(1).TotalTime;
+    ./info_double.FunctionTable(1).TotalTime;
 
 % Display difference
 fprintf("\tSingles are %.2g%% faster\n", time_diff_perc);
