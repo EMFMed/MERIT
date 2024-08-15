@@ -1,6 +1,16 @@
 % Getting started guide for MERIT
 % A basic guide to imaging with this toolbox.
 
+%{
+getting_started.m demonstrates the following:
+- Loading the dataset.
+- Generating an empty domain.
+- Calculating the delays for relavent points in the domain.
+- DAS beamforming an image.
+- Displaying the an image slice.
+- Displaying a 3D image.
+%}
+
 %% Load example data
 % Details of the breast phantoms used to collect the sample data
 % are given in "Microwave Breast Imaging: experimental
@@ -9,20 +19,25 @@
 % The antenna locations, frequency points and scattered signals
 % are given in the "example_data/" folder:
 
-% frequencies.csv: the frequency points in Hertz;
+% frequencies.csv: a vector of frequency points in Hertz.
 frequencies = dlmread('example_data/frequencies.csv');
-% antenna_locations.csv: the antenna locations in metres;
+%{
+antenna_locations.csv: an array for the coordinates for each antenna relative
+to the centre of the chamber, in metres.
+%}
 antenna_locations = dlmread('example_data/antenna_locations.csv');
-% channel_names.csv: the descriptions of the channels in the scattered data;
+%{
+channel_names.csv:
+- The first column is the index of antenna that sent the signal.
+- The second column is the index of the antenna that received the signal.
+%}
 channel_names = dlmread('example_data/channel_names.csv');
 
+%Load the signal (The size is frequencies x channel_names).
 % Select the signal data from a range of different scans.
-% TODO: Replace this with the BRIGID function that explains what each one
-% does.
-scan1 = dlmread('example_data/B0_P3_p000.csv');
-% For a second scan rotated by 36 degrees from the first
-% was acquired for artefact removal:
-scan2 = dlmread('example_data/B0_P3_p036.csv');
+ph = "B0"; % Choose breast phantom from the following: {'B0','B10E','B15E','B20E','B30E'}.
+pl = 3; % Choose tumour from list of 1 to 22.
+[scan1, scan2] = load_scan(ph, pl);
 
 % Perform rotation subtraction
 signals = scan1-scan2;

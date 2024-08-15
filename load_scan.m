@@ -1,4 +1,4 @@
-function [scan, rotated_scan] = load(ph, pl)
+function [scan, rotated_scan] = load_scan(ph, pl)
    filename = sprintf('%s_P%d_p000.csv', ph, pl);
    rot_filename = sprintf('%s_P%d_p036.csv', ph, pl);
    
@@ -19,8 +19,8 @@ function [scan, rotated_scan] = load(ph, pl)
         error('Error: %s does not exist.', rot_filepath);
     end
 
-    scan = dlmread(filename);
+    scan = dlmread(filepath);
     % A second scan rotated by 36 degrees from the first
     % was acquired for artefact removal:
-    rotated_scan = dlmread(rot_filename);
+    rotated_scan = dlmread(rot_filepath);
 end
