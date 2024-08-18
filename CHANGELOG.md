@@ -6,7 +6,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added back expand2.m (needed to complete tests)
+
+### Changed
+
 - Cleaner getting_started.m
+- Renamed "beamformers" to "beamformer"
+- Moved imaging_domain from "+beamform" to "+process"
+- Renamed imaging_domain.m to get_points.m
+- Renamed get_delays.m to get_delay.m
+- Moved "get_delay.m" from "+beamform" to one level above ("+merit")
+- Moved "+windows" from "+beamform" to "+process"
+- Moved all files from "+utility/" to "+process/"
+- Updated TODO list
+
+### Removed
+
+- Deleted "+beamform/"
+- Deleted "+utilities/"
+
 
 ## [1.0.0] - 2024-08-15
 

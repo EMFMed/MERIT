@@ -20,15 +20,15 @@ function [signals_] = td2fd(signals, time_axis, frequency_axis)
   validateattributes(frequency_axis, {'numeric'},...
     {'vector', 'increasing', 'real'});
 
-  if ~merit.utility.linearlysampled(time_axis)
+  if ~merit.process.linearlysampled(time_axis)
     error('merit:process:td2fd', 'Time axis needs to be linearly sampled');
   end
-  if ~merit.utility.linearlysampled(frequency_axis)
+  if ~merit.process.linearlysampled(frequency_axis)
     error('merit:process:td2fd', 'Frequency axis needs to be linearly sampled');
   end
 
   %% Accommodate trailing dimensions
-  signals_ = merit.utility.reshape2d(@td2fd_, signals);
+  signals_ = merit.process.reshape2d(@td2fd_, signals);
 
   function [signals_] = td2fd_(signals)
     dt = diff(time_axis(1:2));
