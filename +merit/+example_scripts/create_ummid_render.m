@@ -79,21 +79,21 @@ adi_rad = ADI_RADS.(split_adi_id{1});
 number_antennas = size(scan_data, 3); % The number of antenna locations.
 starting_antenna_angle = deg2rad(-130);
 
-antenna_locations = merit.domain.create_circumference(...
+antenna_locations = merit.domain.circumference(...
     ant_phase_rad, ...
     number_antennas, ...
     starting_antenna_angle...
     );
 
 %% Calculate delays
-c_0 = 299792458; % Vaccuum speed, taken from "merit.beamform.get_delays.m"
+c_0 = 299792458; % Vaccuum speed, taken from "merit.get_delay.m"
 %{
 The relative permittivity was measured by calculating the speed for every
 s11 scan in "gen-three/clean". Then dividing the mean of that by...
 the speed of a vaccuum to get relative permittivity.
 %}
 relative_permittivity = 1.0932; 
-delays_temp = merit.beamform.get_delays([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity=relative_permittivity);
+delays_temp = merit.get_delay([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity=relative_permittivity);
 
 %{
 Apply extra time delay for monostatic. Constant taken from T. Reimer's measurements.

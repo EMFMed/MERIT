@@ -1,10 +1,10 @@
 function [f] = G_GSS(imgs, points, axes_),
-  %merit.beamform.un_imaging_domain(img, points, axes_)
   window_size = 15;
   nPoints = size(points, 1);
 
   inds = (1:nPoints)';
-  grid_ = merit.beamform.un_imaging_domain(inds, points, axes_{:});
+  % There is/was never an un_imaging_domain.m, so this is broken.
+  grid_ = merit.un_imaging_domain(inds, points, axes_{:});
   if isa(imgs, 'single')
     grid_ = single(grid_);
   end

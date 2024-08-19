@@ -1,10 +1,11 @@
-function [calculate_time] = get_delays(channels, antennas, options)
-  %% [calculate_time] = get_delays(channels, antennas, options)
-  %  returns a function which takes a list of points (x, y) or (x, y ,z) across the rows
-  %  and returns the times for each channel to each point.
-  %  channels: a C × 2 array for which antenna location is transmitting and receiving
-  %  antennas: an A × D array for the antenna locations
-  %  options: relative permittivity
+function [calculate_time] = get_delay(channels, antennas, options)
+% Return an anonymous function for calculating the delay.
+% [calculate_time] = get_delays(channels, antennas, options)
+%  returns a function which takes a list of points (x, y) or (x, y ,z) across the rows
+%  and returns the times for each channel to each point.
+%  channels: a C × 2 array for which antenna location is transmitting and receiving
+%  antennas: an A × D array for the antenna locations
+%  options: relative permittivity
   
 arguments
   channels {mustBePositive, mustBeInteger}

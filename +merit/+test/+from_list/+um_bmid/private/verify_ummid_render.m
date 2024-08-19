@@ -89,14 +89,14 @@ for scan_num = 1:number_of_scans
     number_antennas = size(scan_data, 3); % The number of antenna locations.
     starting_antenna_angle = deg2rad(-130);
     
-    antenna_locations = merit.domain.create_circumference(...
+    antenna_locations = merit.domain.circumference(...
         ant_phase_rad, ...
         number_antennas, ...
         starting_antenna_angle...
         );
     
     %% Calculate delays
-    c_0 = 299792458; % Vaccuum speed, taken from "merit.beamform.get_delays.m"
+    c_0 = 299792458; % Vaccuum speed, taken from "merit.get_delay.m"
     % Calculate signal speed
     prop_speed = get_signal_speed(...
         ant_phase_rad, ...
@@ -108,7 +108,7 @@ for scan_num = 1:number_of_scans
     % Get the permittivity
     relative_permittivity = (c_0 ./ prop_speed).^2;
     
-    delays_temp = merit.beamform.get_delays([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity=relative_permittivity);
+    delays_temp = merit.get_delay([1:number_antennas; 1:number_antennas]', antenna_locations, relative_permittivity=relative_permittivity);
     
     %{
     Apply extra time delay for monostatic. Constant taken from T. Reimer's measurements.
