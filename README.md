@@ -32,8 +32,10 @@ frequencies = dlmread('example_data/frequencies.csv');
 antenna_locations = dlmread('example_data/antenna_locations.csv');
 channel_names = dlmread('example_data/channel_names.csv');
 
-scan1 = dlmread('example_data/B0_P3_p000.csv');
-scan2 = dlmread('example_data/B0_P3_p036.csv');
+% Select the signal data from a range of different scans.
+ph = "B0";
+pl = 3;
+[scan1, scan2] = load_example_scan(ph, pl);
 
 % Perform rotation subtraction
 signals = scan1-scan2;
@@ -42,20 +44,16 @@ signals = scan1-scan2;
 [points, axes_] = merit.domain.hemisphere(7e-2, resolution=2.5e-3);
 
 %% Calculate delays
-% merit.get_delays returns a function that calculates the delay
-%   to each point from every antenna.
-delays = merit.beamform.get_delays(channel_names, antenna_locations, ...
+delays = merit.get_delay(channel_names, antenna_locations, ...
  relative_permittivity=8);
 
 %% Perform imaging
 img = abs(merit.beamform(signals, frequencies, points, delays, ...
-        merit.beamformers.DAS));
+        merit.beamformer.DAS));
 
 %% Display 3D image
-% Convert image to grid
 grid_ = merit.domain.img2grid(img, points, axes_{:});
-% Display image
-merit.visualize.display_3D_scan(grid_);
+merit.display.as_3D_scan(grid_);
 ```
 In a few lines of code, radar-based images can be efficiently created.
 MERIT allows the user to change the beamformer, imaging domain and other features easily and simply.
@@ -102,4 +100,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # License
 
-MERIT is available under the Apache 2.0 license. See LICENSE for more information.
+MERIT is available under the Apache 2.0 license. See [LICENSE.md](LICENSE.md) for more information.
