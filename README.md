@@ -100,4 +100,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # License
 
-MERIT is available under the Apache 2.0 license. See [LICENSE.md](LICENSE.md) for more information.
+MERIT is available under the [Apache 2.0 license](LICENSE.md) .
