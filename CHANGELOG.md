@@ -4,7 +4,7 @@ Notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.1] - 2024-08-20
 
 ### Added
 
@@ -21,12 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Moved "+windows" from "+beamform" to "+process"
 - Moved all files from "+utility/" to "+process/"
 - Updated TODO list
+- Updated example code in README.md
 
 ### Removed
 
 - Deleted "+beamform/"
 - Deleted "+utilities/"
-
 
 ## [1.0.0] - 2024-08-15
 
