@@ -1,4 +1,4 @@
-function display_3D_scan(grid_, options)
+function as_3D_scan(grid_, options)
 % Display a 3D colormap render of a (:, :, :) grid.
 % The density is relative to the highest and lowest numbers.
 % Higher density means higher opacity.
@@ -8,7 +8,7 @@ arguments
 
     % --- Optional arguments---
 
-    % Specify figure to display. "0" means don't specify
+    % Specify figure to display. "0" means create new figure.
     options.figure_number (1, 1) {mustBeGreaterThanOrEqual(options.figure_number, 0)} ...
         = 0
 
@@ -68,7 +68,7 @@ colorbar; % Show color bar to indicate density values
 xlabel('X-axis');
 ylabel('Y-axis');
 zlabel('Z-axis');
-title('3D Scan Density Visualization');
+title('3D Scan');
 view(3); % Set the view to 3D
 axis tight; % Fit the axes to the data
 grid on; % Turn on the grid

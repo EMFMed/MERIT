@@ -20,15 +20,15 @@ function [signals_] = fd2td(signals, frequency_axis, time_axis)
   validateattributes(time_axis, {'numeric'},...
     {'vector', 'increasing', 'real'});
 
-  if ~merit.utility.linearlysampled(time_axis)
+  if ~merit.process.linearlysampled(time_axis)
     error('merit:process:fd2td', 'Time axis needs to be linearly sampled');
   end
-  if ~merit.utility.linearlysampled(frequency_axis)
+  if ~merit.process.linearlysampled(frequency_axis)
     error('merit:process:fd2td', 'Frequency axis needs to be linearly sampled');
   end
 
   %% Accommodate trailing dimensions
-  signals_ = merit.utility.reshape2d(@fd2td_, signals);
+  signals_ = merit.process.reshape2d(@fd2td_, signals);
 
   function [signals_] = fd2td_(signals)
     time_axis = time_axis(time_axis >= 0);
@@ -40,7 +40,7 @@ function [signals_] = fd2td(signals, frequency_axis, time_axis)
     w = exp(-1j*2*pi*dt*df);
     a = exp(1j*2*pi*min(time_axis(:))*df);
 
-    iczt = @(z) merit.utility.under(@(z) czt(z, m, w, a), @conj, @conj, z);
+    iczt = @(z) merit.process.under(@(z) czt(z, m, w, a), @conj, @conj, z);
 
     % Phase compensation
     phase = exp(1j*2*pi*min(frequency_axis(:)).*time_axis(:));

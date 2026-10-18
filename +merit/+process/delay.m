@@ -21,26 +21,28 @@ function [signals_] = delay(signals, delays, axis_, padding)
     padding = @nan;
   end
 
+  [signals, delays] = merit.process.expand2(signals, delays);
+
   if isreal(signals)
     %% Time domain
     if nargin == 2
       %% time domain, delay in samples
       validateattributes(delays, {'numeric'}, {'integer'});
-      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays);
+      signals_ = merit.process.reshape2d(@delay_sample, signals, delays);
     elseif nargin >= 3 & numel(axis_) == size(signals, 1)
       %% Time axis provided
       validateattributes(axis_, {'numeric'},...
         {'vector', 'increasing', 'real'});
-      if ~merit.utility.linearlysampled(axis_)
+      if ~merit.process.linearlysampled(axis_)
         error('merit:process:delay', 'Time axis needs to be linearly sampled');
       end
       dt = diff(axis_(1:2));
-      signals_ = merit.utility.reshape2d(@delay_sample, signals, round(delays./dt));
+      signals_ = merit.process.reshape2d(@delay_sample, signals, round(delays./dt));
     elseif nargin == 3 & isa(axis_, 'function_handle')
       % Padding provided
       padding = axis_;
       validateattributes(delays, {'numeric'}, {'integer'});
-      signals_ = merit.utility.reshape2d(@delay_sample, signals, delays);
+      signals_ = merit.process.reshape2d(@delay_sample, signals, delays);
     end
   elseif ~isreal(signals) && nargin == 3
     %% Frequency domain

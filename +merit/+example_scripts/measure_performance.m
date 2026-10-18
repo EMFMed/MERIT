@@ -35,7 +35,7 @@ function [signals, loaded_delays, frequencies] = setup_func()
     
     [points, ~] = merit.domain.hemisphere(7e-2, pixel_dim=50);
     
-    delays = merit.beamform.get_delays(channel_names, antenna_locations, relative_permittivity=8);
+    delays = merit.get_delay(channel_names, antenna_locations, relative_permittivity=8);
     loaded_delays = delays(points);
 end
 

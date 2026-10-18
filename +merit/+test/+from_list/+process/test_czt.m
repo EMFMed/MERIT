@@ -67,7 +67,7 @@ classdef test_czt < matlab.unittest.TestCase;
         reshape(tc.fd(F, :), [numel(fa_), orig_size(2:end)]),...
         fa_, tc.ta);
       
-      lags = merit.utility.reshape2d(@cc, tc.td, td_);
+      lags = merit.process.reshape2d(@cc, tc.td, td_);
       tc.verifyTrue(all(lags(:) == 0));
 
       function [best] = cc(x, y)

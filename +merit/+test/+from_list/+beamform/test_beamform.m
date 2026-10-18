@@ -20,9 +20,9 @@ classdef test_beamform < matlab.unittest.TestCase
       [pulse_td, pulse_fd] = DG(3e9, 1/3e9, time_axis, frequencies);
       signals = single(merit.process.shape(data, pulse_fd, frequencies, time_axis));
 
-      delay_func = merit.beamform.get_delays(channels, antenna_locations, relative_permittivity=8);
+      delay_func = merit.get_delay(channels, antenna_locations, relative_permittivity=8);
 
-      img = merit.beamform(signals, time_axis, points, delay_func, merit.beamformers.DAS, window= merit.beamform.windows.rectangular(150));
+      img = merit.beamform(signals, time_axis, points, delay_func, merit.beamformer.DAS, window=merit.domain.windows.rectangular(150));
       [~, i] = max(img);
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
 
@@ -40,9 +40,9 @@ classdef test_beamform < matlab.unittest.TestCase
       data = single(data(F, :));
       frequencies = frequencies(F);
 
-      delay_func = merit.beamform.get_delays(channels, antenna_locations, relative_permittivity=8);
+      delay_func = merit.get_delay(channels, antenna_locations, relative_permittivity=8);
 
-      img = abs(merit.beamform(data, frequencies, points, delay_func, merit.beamformers.DAS));
+      img = abs(merit.beamform(data, frequencies, points, delay_func, merit.beamformer.DAS));
       [~, i] = max(img);
       [t, r, z] = cart2pol(points(i, 1), points(i, 2), points(i, 3));
       testCase.verifyLessThan(abs(rad2deg(t)-location(1)), 9);

@@ -84,7 +84,7 @@ else
 end
 
 % use area and axes to get the set of points in the imaging domain only
-points = merit.beamform.imaging_domain(area_, axes_{:});
+points = merit.domain.get_points(area_, axes_{:});
 end
 
 function mustBeNumericOrRealVectorOrEmpty(a)
