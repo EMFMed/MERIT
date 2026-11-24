@@ -85,6 +85,8 @@ Research publications which have used MERIT:
 
 * [A 16‐modified antipodal Vivaldi antenna array for microwave‐based breast tumor imaging applications](https://onlinelibrary.wiley.com/doi/full/10.1002/mop.31873)
 
+* [Low-Artifact Microwave Breast Imaging via Rapid Information Factor-Based Channel Pruning](https://ieeexplore.ieee.org/document/11616685)
+
 ## Conference Publications
 
 * [Effects of Interpatient Variance on Microwave Breast Images: Experimental Evaluation](https://ieeexplore.ieee.org/abstract/document/8513673)
